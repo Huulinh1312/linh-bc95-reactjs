@@ -8,7 +8,7 @@ export default function BaiTapThucHanhLayout() {
     <div className="flex flex-col min-h-screen">
       <Header />
       {/* Body chiếm phần không gian trống ở giữa để đẩy Footer xuống đáy nếu nội dung ít */}
-      <div className="flex-grow">
+      <div className="">
         <Body />
       </div>
       <Footer />

@@ -4,7 +4,7 @@ export default function Item() {
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 flex flex-col h-full mt-8">
       {/* Cục icon nổi lên trên */}
-      <div className="relative p-6 text-center flex-grow pt-10">
+      <div className="relative p-6 text-center  pt-10">
         <div className="bg-blue-600 text-white w-16 h-16 rounded-lg flex items-center justify-center text-2xl font-bold absolute -top-8 left-1/2 transform -translate-x-1/2">
           {/* Tạm thời để chữ i, bạn có thể thay bằng icon sau */}
           i
