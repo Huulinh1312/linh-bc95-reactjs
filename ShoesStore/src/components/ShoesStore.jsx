@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ProductList from "./ProductList";
-import dataShoes from "./data.json";
-import Modal from "./Modal ";
+import products from "./data.json";
+import Modal from "./Modal";
 import Header from "./Header";
 import Cart from "./Cart";
 
 const ShoesStore = () => {
   const [productDetail, setProductDetail] = useState(null);
+  const [toastMessage, setToastMessage] = useState("");
+  const [isToastVisible, setIsToastVisible] = useState(false);
+  const toastTimeoutRef = useRef(null);
 
   //state cart
   const [cart, setCart] = useState({});
@@ -33,6 +36,16 @@ const ShoesStore = () => {
       [productId]: currentQty + 1,
     };
     setCart(newCart);
+    setToastMessage("Thêm vào giỏ hàng thành công");
+    setIsToastVisible(true);
+
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+    }
+
+    toastTimeoutRef.current = setTimeout(() => {
+      setIsToastVisible(false);
+    }, 800);
   };
   const handleIncreaseQty = (productId) => {
     setCart((prevCart) => ({
@@ -56,80 +69,93 @@ const ShoesStore = () => {
   // Tạo biến totalItems tính tổng số lượng sản phẩm trong cart
   const listQty = Object.values(cart);
   const totalItems = listQty.reduce((sum, Qty) => sum + Qty, 0);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-slate-200">
       {/* Header */}
       <Header onCartOpen={handleCartOpen} cartCount={totalItems} />
 
-      {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 pt-12 pb-8">
-        <div className="bg-gradient-to-r from-blue-400 to-indigo-700 rounded-3xl p-10 md:p-16 shadow-2xl overflow-hidden relative">
-          {/* Background blur */}
-          <div className="absolute -top-20 -right-20 w-72 h-72 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute -bottom-24 -left-20 w-72 h-72 bg-cyan-300/10 rounded-full blur-3xl" />
-
-          <div className="relative z-10 grid md:grid-cols-2 gap-10 items-center">
-            {/* Left */}
-            <div>
-              <span className="inline-block px-4 py-1 rounded-full bg-white/10 text-white text-sm font-medium mb-5 backdrop-blur">
-                New Collection 2026
-              </span>
-
-              <h1 className="text-4xl md:text-6xl font-black text-white leading-tight">
-                Discover Your
-                <span className="block text-cyan-300">Perfect Shoes</span>
-              </h1>
-
-              <p className="text-blue-100 mt-5 text-lg leading-relaxed max-w-lg">
-                Premium sneakers with modern design, comfort, and style for your
-                everyday lifestyle.
-              </p>
-
-              <div className="flex flex-wrap gap-4 mt-8">
-                <button className="px-7 py-3 rounded-2xl bg-white text-blue-700 font-bold hover:scale-105 transition duration-300 shadow-lg">
-                  Shop Now
-                </button>
-
-                <button className="px-7 py-3 rounded-2xl border border-white/30 text-white font-bold hover:bg-white/10 transition duration-300">
-                  Explore More
-                </button>
-              </div>
+      {isToastVisible && (
+        <div className="fixed top-5 right-5 z-50 w-full max-w-xs rounded-3xl border border-emerald-200 bg-emerald-600 text-white shadow-2xl shadow-emerald-900/30 px-4 py-4">
+          <div className="flex items-start gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/15 text-white">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-6 w-6"
+              >
+                <path d="M9 12.75L6.75 10.5 5.5 11.75 9 15.25 19 5.25 17.75 4 9 12.75z" />
+              </svg>
             </div>
-
-            {/* Right */}
-            <div className="flex justify-center">
-              <img
-                src="https://static.nike.com/a/images/f_auto/dpr_3.0,cs_srgb/h_617,c_limit/159e1476-264a-41fb-a6e5-5c7dab6489b1/nike-just-do-it.png"
-                alt="hero-shoes"
-                className="w-full max-w-lg drop-shadow-[0_30px_30px_rgba(0,0,0,0.35)] hover:scale-105 transition duration-500"
-              />
+            <div>
+              <p className="text-sm font-semibold">Thành công</p>
+              <p className="mt-1 text-sm text-emerald-100">{toastMessage}</p>
             </div>
           </div>
         </div>
-      </section>
+      )}
 
       {/* Product Section */}
-      <section className="max-w-7xl mx-auto px-6 pb-16">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-black text-slate-800">
-              Trending Sneakers
-            </h2>
+      <section className="max-w-7xl mx-auto px-6 py-6">
+        <div className="mb-8 overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-r from-[#071226] via-[#0b2540] to-[#071226] p-8 md:p-10 text-white shadow-2xl">
+          <div className="flex flex-col-reverse gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex-1">
+              <p className="text-xs font-semibold uppercase tracking-wider text-cyan-300">
+                Ưu đãi giới hạn
+              </p>
+              <h2 className="mt-3 text-3xl md:text-4xl font-extrabold tracking-tight">
+                Mua ngay — Nhận ưu đãi lớn
+              </h2>
+              <p className="mt-4 text-sm text-slate-300 max-w-xl">
+                Nhận ưu đãi 25% cho đơn hàng đầu tiên và giao hàng miễn phí trong hôm nay. Khuyến mãi có hạn — đừng bỏ lỡ.
+              </p>
 
-            <p className="text-slate-500 mt-2">
-              Discover the latest trending shoes collection
-            </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href="#"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-cyan-400 px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-cyan-300 transition"
+                >
+                  Mua ngay
+                </a>
+
+                <a
+                  href="#"
+                  className="inline-flex items-center gap-2 rounded-2xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white hover:bg-white/20 transition"
+                >
+                  Xem bộ sưu tập mới
+                </a>
+              </div>
+            </div>
+
+            <div className="w-full lg:w-1/3">
+              <div className="relative rounded-2xl overflow-hidden bg-white/5 p-3">
+                <img
+                  src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=800&auto=format&fit=crop"
+                  alt="sneaker banner"
+                  className="w-full h-56 md:h-64 object-cover rounded-lg shadow-lg"
+                />
+
+                <div className="absolute -bottom-4 left-4 flex items-center gap-3 rounded-full bg-gradient-to-r from-cyan-400 to-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-md">
+
+                </div>
+              </div>
+            </div>
           </div>
-
-          <button className="hidden md:flex items-center gap-2 px-5 py-3 rounded-2xl bg-white shadow hover:shadow-lg font-semibold text-slate-700 transition">
-            View All
-          </button>
         </div>
 
         {/* Product Grid Wrapper */}
         <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-[32px] p-6 md:p-8 shadow-xl">
           <ProductList
-            dataShoes={dataShoes}
+            productsData={products}
             handleOpenDetail={handleOpenDetail}
             onAddToCart={handleAddToCart}
           />
@@ -148,7 +174,7 @@ const ShoesStore = () => {
         isCartOpen={isCartOpen}
         cart={cart}
         onCloseCart={handleCartClose}
-        products={dataShoes}
+        products={products}
         onIncreaseQty={handleIncreaseQty}
         onDecreaseQty={handleDecreaseQty}
       />
