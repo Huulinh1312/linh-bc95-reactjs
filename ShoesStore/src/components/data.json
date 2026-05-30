@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "name": "Adidas Prophere",
+    "alias": "adidas-prophere",
+    "price": 350,
+    "description": "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.",
+    "shortDescription": "The midsole contains 20% more Boost for an amplified Boost feeling.",
+    "quantity": 995,
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+  },
+  {
+    "id": 2,
+    "name": "Adidas Prophere Black White",
+    "alias": "adidas-prophere-black-white",
+    "price": 450,
+    "description": "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.",
+    "shortDescription": "The midsole contains 20% more Boost for an amplified Boost feeling.",
+    "quantity": 990,
+    "image": "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519"
+  },
+  {
+    "id": 3,
+    "name": "Adidas Prophere Customize",
+    "alias": "adidas-prophere-customize",
+    "price": 375,
+    "description": "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.",
+    "shortDescription": "The midsole contains 20% more Boost for an amplified Boost feeling.",
+    "quantity": 415,
+    "image": "https://images.unsplash.com/photo-1608231387042-66d1773070a5"
+  },
+  {
+    "id": 4,
+    "name": "Adidas Super Star Red",
+    "alias": "adidas-super-star-red",
+    "price": 465,
+    "description": "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.",
+    "shortDescription": "The midsole contains 20% more Boost for an amplified Boost feeling.",
+    "quantity": 542,
+    "image": "https://images.unsplash.com/photo-1543508282-6319a3e2621f"
+  },
+  {
+    "id": 5,
+    "name": "Adidas Swift Run",
+    "alias": "adidas-swift-run",
+    "price": 550,
+    "description": "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.",
+    "shortDescription": "The midsole contains 20% more Boost for an amplified Boost feeling.",
+    "quantity": 674,
+    "image": "https://images.unsplash.com/photo-1549298916-b41d501d3772"
+  },
+  {
+    "id": 6,
+    "name": "Adidas Tenisky Super Star",
+    "alias": "adidas-tenisky-super-star",
+    "price": 250,
+    "description": "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.",
+    "shortDescription": "The midsole contains 20% more Boost for an amplified Boost feeling.",
+    "quantity": 456,
+    "image": "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77"
+  },
+  {
+    "id": 7,
+    "name": "Adidas Ultraboost 4",
+    "alias": "adidas-ultraboost-4",
+    "price": 450,
+    "description": "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.",
+    "shortDescription": "The midsole contains 20% more Boost for an amplified Boost feeling.",
+    "quantity": 854,
+    "image": "https://www.footish.se/pub_images/original/adidas-originals-ultraboost-4-0-dna-fy9121-p67418.jpg?timestamp=1605698760"
+    },
+  {
+    "id": 8,
+    "name": "Adidas Yeezy 350",
+    "alias": "adidas-yeezy-350",
+    "price": 750,
+    "description": "The adidas Primeknit upper wraps the foot with a supportive fit that enhances movement.",
+    "shortDescription": "The midsole contains 20% more Boost for an amplified Boost feeling.",
+    "quantity": 524,
+    "image": "https://images.unsplash.com/photo-1556906781-9a412961c28c"
+  },
+  {
+    "id": 9,
+    "name": "Nike Adapt BB",
+    "alias": "nike-adapt-bb",
+    "price": 630,
+    "description": "Nike shoe is the rare high-percentage shooter who's also a coach's dream on D.",
+    "shortDescription": "Paul George is the rare high-percentage shooter",
+    "quantity": 599,
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+  },
+  {
+    "id": 10,
+    "name": "Nike Air Max 97",
+    "alias": "nike-air-max-97",
+    "price": 650,
+    "description": "Nike shoe is the rare high-percentage shooter who's also a coach's dream on D.",
+    "shortDescription": "Paul George is the rare high-percentage shooter",
+    "quantity": 984,
+    "image": "https://images.unsplash.com/photo-1543508282-6319a3e2621f"
+  },
+  {
+    "id": 11,
+    "name": "Nike Air Max 97 Blue",
+    "alias": "nike-air-max-97-blue",
+    "price": 450,
+    "description": "Nike shoe is the rare high-percentage shooter who's also a coach's dream on D.",
+    "shortDescription": "Paul George is the rare high-percentage shooter",
+    "quantity": 875,
+    "image": "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519"
+  },
+  {
+    "id": 12,
+    "name": "Nike Air Max 270 React",
+    "alias": "nike-air-max-270-react",
+    "price": 750,
+    "description": "Nike shoe is the rare high-percentage shooter who's also a coach's dream on D.",
+    "shortDescription": "Paul George is the rare high-percentage shooter",
+    "quantity": 445,
+    "image": "https://images.unsplash.com/photo-1608231387042-66d1773070a5"
+  }
+]
