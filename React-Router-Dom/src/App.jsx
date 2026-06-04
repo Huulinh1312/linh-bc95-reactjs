@@ -9,6 +9,7 @@ import Profile from './pages/Profile'
 import NotFound from './pages/NotFound'
 import ProtectedRoute from './layouts/ProtectedRoute'
 import AdminLayout from './layouts/AdminLayout'
+import GuestRoute from './component/GuestRoute'
 //LƯU Ý:
 // App này sẽ chỉ define các router
 // VD: /home => HomePage
@@ -27,13 +28,24 @@ function App() {
         <Route path='/profile' element={<Profile/>} />
       </Route>
       
-      <Route path="/login" element={<Login/>} />
-      <Route path="/register" element={<Register/>} />
+      {/* Thêm route check nữa để chặn user không vào được page login và register nếu đã login trước đó rồi */}
+      {/* Guest Route */}
+      <Route path="/login" element={
+        <GuestRoute>
+          <Login/>
+        </GuestRoute>
+      } />
+      <Route path="/register" element={
+        <GuestRoute>
+          <Register/>
+        </GuestRoute>
+      } />
+
       {/* endpoint Admin */}
       <Route 
         path="/admin"
         element={
-          <ProtectedRoute>
+          <ProtectedRoute requiredRole="admin">
             <AdminLayout/>
           </ProtectedRoute>
         } />

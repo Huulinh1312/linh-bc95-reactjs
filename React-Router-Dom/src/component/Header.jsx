@@ -1,9 +1,29 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// lấy info user từ localStorage
+// VÌ thời gian lưu user vào localStorage chậm hơn thời gian
+// lấy user của Header nên sẽ có trường hợp user bị null khi lần đầu render Header
+// giải pháp 1: dùng useContext để lưu user, khi user thay đổi thì Header sẽ tự động re-render lại
+// giải pháp 2: dùng useState để lưu user trong Header, khi user thay đổi thì Header sẽ re-render lại
+// giải pháp 3: redux
+// const user = JSON.parse(localStorage.getItem("user"));
+
+// QUY TRÌNH RENDER user infor
+// B1: react sẽ load tất cả component bao gồm là Header
+// => load user infor từ localStorage (null)
+// sau khi login thành công => lưu user vào localStorage
+// chuyển sang trang / => gọi hàm getUser  để lấy user infor mới nhất 
+// => cập nhật lại state userInfo => Header re-render => hiển thị tên user ở header
+const getUser = () => JSON.parse(localStorage.getItem('user'))
+
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const lastFocusedElementRef = useRef(null);
+  const [userInfo, setUserInfo] = useState(getUser);
+  const navigate = useNavigate();
 
   const openMenu = () => {
     lastFocusedElementRef.current = document.activeElement;
@@ -37,6 +57,20 @@ export default function Header() {
       document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [isMenuOpen]);
+
+  const handleLogout = () => {
+    // Xóa thông tin user khỏi localStorage
+    localStorage.removeItem("user");
+    // Cập nhật lại state userInfo để giao diện header thay đổi
+    setUserInfo(null);
+
+    // redirect về trang login hoặc về trang chủ tùy theo nghiệp vụ project
+    // case này thì redirect về trang chủ
+    // useNavigate của react-router-dom (Nên dùng cái này)
+    // Navigate là conponent của react-router-dom 
+
+    navigate("/")
+  }
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 ">
@@ -141,16 +175,38 @@ export default function Header() {
                   Contact
                 </a>
               </li>
+              {userInfo?.role === "admin" && (
+                <li>
+                  <NavLink
+                    to="/admin"
+                    className="hover:text-blue-700 dark:hover:text-blue-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
+                  >
+                    Admin
+                  </NavLink>
+                </li>
+              )}
             </ul>
           </div>
 
           <div className="flex items-center gap-4">
-            <NavLink
-              to="/login"
-              className="py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-            >
-              Sign up
-            </NavLink>
+            {/* Nếu có user info => hiện tên user và nút logout */}
+            {userInfo ? (
+              <div className="flex items-center gap-4">
+                <span className="text-white ">{userInfo.name || "Demo"}</span>
+                <button 
+                  onClick={handleLogout}
+                  className="py-2 px-4 rounded-md font-semibold bg-blue-400 text-white">
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <NavLink
+                to="/register"
+                className="py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              >
+                Sign up
+              </NavLink>
+            )}
 
             <button
               type="button"
