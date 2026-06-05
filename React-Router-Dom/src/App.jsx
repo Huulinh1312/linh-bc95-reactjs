@@ -7,9 +7,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import About from './pages/About'
 import Profile from './pages/Profile'
 import NotFound from './pages/NotFound'
-import ProtectedRoute from './layouts/ProtectedRoute'
+import ProtectedRoute from './component/ProtectedRoute'
 import AdminLayout from './layouts/AdminLayout'
 import GuestRoute from './component/GuestRoute'
+import ProductDetail from './pages/ProductDetail'
 //LƯU Ý:
 // App này sẽ chỉ define các router
 // VD: /home => HomePage
@@ -23,7 +24,11 @@ function App() {
 
       {/* Lý thuyết 1: nested routes */}
       <Route path='/' element={<MainLayout/>} >
-        <Route path='products' element={<Products/>} />
+        <Route path='product' element={<Products/>} />
+        {/* define param */}
+        {/* dấu :  dùng để xác định param */}
+        {/* sau dấu : là tên của param ,  đặt tên nào cũng được */}
+        <Route path='product/:id' element={<ProductDetail/>} />
         <Route path='/about' element={<About/>} />
         <Route path='/profile' element={<Profile/>} />
       </Route>

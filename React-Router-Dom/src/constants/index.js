@@ -1,0 +1,1 @@
+export const PRODUCT_API = "https://69ca679fba5984c44bf31927.mockapi.io/api/v1/phone"

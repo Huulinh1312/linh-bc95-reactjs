@@ -2,6 +2,8 @@ import React from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { login } from '../store/slices/userSlice'
 // yup : thư vienj hỗ trợ validate form
 // formik : thư viện hỗ trợ quản lý form , kết hợp với yup để validate form
 // forimk:
@@ -39,7 +41,7 @@ const LoginSchema = Yup.object({
 
 const Login = () => {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch()
   // defin formik form: cần 3 tham số chính
   // intitalValues: giá trị ban đầu của form
   // validationSchema: yup schema để validate form
@@ -64,8 +66,9 @@ const Login = () => {
       }
       // nếu lưu thành công => lưu thông tin user vào localStorage
       // vì localStorage chỉ lưu được string nên cần stringify trước khi lưu
-      localStorage.setItem("user", JSON.stringify(account));
-
+      // localStorage.setItem("user", JSON.stringify(account));
+      // recomend: push infor user -> store của redux
+      dispatch(login(account))
       //redirect về trang chủ sau khi login thành công
       navigate("/");
       // Xử lý submit form ở đây

@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { selectCurrentUser } from "../store/slices/userSlice";
+import { logout } from '../store/slices/userSlice'
 // lấy info user từ localStorage
 // VÌ thời gian lưu user vào localStorage chậm hơn thời gian
 // lấy user của Header nên sẽ có trường hợp user bị null khi lần đầu render Header
@@ -15,14 +18,16 @@ import { useNavigate } from "react-router-dom";
 // sau khi login thành công => lưu user vào localStorage
 // chuyển sang trang / => gọi hàm getUser  để lấy user infor mới nhất 
 // => cập nhật lại state userInfo => Header re-render => hiển thị tên user ở header
-const getUser = () => JSON.parse(localStorage.getItem('user'))
+// const getUser = () => JSON.parse(localStorage.getItem('user'))
 
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const lastFocusedElementRef = useRef(null);
-  const [userInfo, setUserInfo] = useState(getUser);
+  // const [userInfo, setUserInfo] = useState(getUser);
+  const dispatch = useDispatch()
+  const userInfo = useSelector(selectCurrentUser)
   const navigate = useNavigate();
 
   const openMenu = () => {
@@ -60,10 +65,10 @@ export default function Header() {
 
   const handleLogout = () => {
     // Xóa thông tin user khỏi localStorage
-    localStorage.removeItem("user");
-    // Cập nhật lại state userInfo để giao diện header thay đổi
-    setUserInfo(null);
-
+    // localStorage.removeItem("user");
+    // // Cập nhật lại state userInfo để giao diện header thay đổi
+    // setUserInfo(null);
+    dispatch(logout())
     // redirect về trang login hoặc về trang chủ tùy theo nghiệp vụ project
     // case này thì redirect về trang chủ
     // useNavigate của react-router-dom (Nên dùng cái này)
