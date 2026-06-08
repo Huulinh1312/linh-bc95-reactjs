@@ -19,14 +19,16 @@ const userSlice = createSlice({
         // param 2 : action được gửi từ component hoặc page
         login: (state, action) => {
             state.currentUser = action.payload
-            //lưu thông tin của user vào localStorage 
-            localStorage.setItem('user', JSON.stringify(action.payload))
+            //lưu thông tin của user vào localStorage
+            // move qua usermiddleware.js
+            // localStorage.setItem('user', JSON.stringify(action.payload))
         },
         // action 2: logout
         logout: (state, action) => {
             state.currentUser = null
             // xóa thông tin của user khỏi localStorage
-            localStorage.removeItem('user')
+            // move qua usermiddleware.js
+            // localStorage.removeItem('user')
         }
     }
 })
