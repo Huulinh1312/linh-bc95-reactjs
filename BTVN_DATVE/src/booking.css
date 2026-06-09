@@ -1,0 +1,78 @@
+.man-hinh {
+    border-bottom: 50px solid rgb(255, 159, 95);
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    filter: drop-shadow(0 20px 30px rgba(255, 200, 100, 0.45));
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.man-hinh-label {
+    position: absolute;
+    bottom: -42px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 6px;
+    white-space: nowrap;
+}
+
+/* Base ghế */
+.ghe {
+    width: 38px;
+    height: 30px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Ghế chưa đặt: viền cam, nền trong suốt */
+.ghe-trong {
+    border: 2px solid #f97316;
+    color: #fff;
+}
+
+/* Ghế đang chọn (khách đang chọn): nền xanh lá */
+.ghe-chon {
+    border: 2px solid #4ade80;
+    background-color: #4ade80;
+    color: #000;
+}
+
+/* Ghế đã đặt: nền cam đậm */
+.ghe-dat {
+    border: 2px solid #f97316;
+    background-color: #f97316;
+    color: #000;
+    cursor: not-allowed;
+}
+
+/* Cuộn ngang trên màn nhỏ */
+.rap-wrap {
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.rap-inner {
+    min-width: max-content;
+}
+
+::-webkit-scrollbar {
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #92400e;
+    border-radius: 99px;
+}
