@@ -1,13 +1,15 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectorDanhSachGhe } from '../store/booking/bookingSlice'
+import { chonGhe, selectorDanhSachGhe, selectorGheKhachChon } from '../store/booking/bookingSlice'
 
 const RapPhim = () => {
 
     const dispatch = useDispatch()
     
     const danhSachGhe = useSelector(selectorDanhSachGhe)
-    console.log("danh sach ghe: ", danhSachGhe)
+    
+
+    const gheKhachChon = useSelector(selectorGheKhachChon)
 
     // hàm render header ghế
     const renderHeaderGhe = () => {
@@ -55,8 +57,19 @@ const RapPhim = () => {
         }
     }
 
+    const handleDatGhe = (ghe) => {
+        
+        // dispatch action chonGhe, payload: object ghe được click
+        if(ghe.daDat) return; // nếu ghế đã đặt, không push thông tin ghế vào store nữa
+        dispatch(chonGhe(ghe))
+    }
+
     const renderGhe = () => {
         // duyệt danhSachGhe, nếu gặp hàng có hang !== "" => render ghế
+
+        // kết hợp gheKhachChon để xác định ghế nào đang được chọn => đổi màu ghế đó
+        const soGheKhachChon = gheKhachChon.map(ghe => ghe.soGhe) // ["A1", "A2", "A3"]
+        
         return danhSachGhe.map((data, index1) => {
             if (data.hang !== "") {
                 return (
@@ -68,7 +81,9 @@ const RapPhim = () => {
                             data.danhSachGhe.map((ghe, index2) => (
                                 <div
                                     key={index2}
-                                    className={`ghe ${ghe.daDat ? 'ghe-dat' : 'ghe-trong'}`}>
+                                    onClick={() => handleDatGhe(ghe)}
+                                    className={`cursor-pointer ghe ${ghe.daDat ? 'ghe-dat' : 'ghe-trong'}  
+                                    ${soGheKhachChon.includes(ghe.soGhe) ? 'bg-green-400' : ''}`}>
                                         {ghe.soGhe}
                                 </div>
                             ))
@@ -81,7 +96,7 @@ const RapPhim = () => {
     return (
         <section className="flex-1 flex flex-col items-center">
             {/* Màn hình chiếu */}
-            <div className="relative w-4/6 mb-8 flex justify-center">
+            <div className="relative w-4/5 mb-8 flex justify-center">
                 <div
                     className="w-full flex items-end justify-center text-white font-bold text-base pb-2"
                     style={{
