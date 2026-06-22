@@ -13,6 +13,7 @@ import CinemaPage from "./pages/CinemaPage"
 import ProfilePage from "./pages/ProfilePage"
 import ProtectedRoute from "./components/ProtectedRoute"
 import ProtectedAdminRoute from "./components/ProtectedAdminRoute"
+import FilmPage from "./pages/admin/FilmPage"
 
 // cài đặt query client ở ngoài App để tất cả các component, page
 // đều có thể sử dụng được
@@ -55,7 +56,9 @@ function App() {
                 <AdminLayout />
               </ProtectedAdminRoute>
             }>
+              <Route index element={<UserPage />} />
               <Route path="users" element={<UserPage />} />
+              <Route path="films" element={<FilmPage />} />
             </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

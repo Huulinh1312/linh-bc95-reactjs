@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { logout, selectorIsLoggedIn, selectorUser } from '../store/authSlice'
+import { useQueryClient } from '@tanstack/react-query'
 
 const Header = () => {
     const isLoggedIn = useSelector(selectorIsLoggedIn)
@@ -9,7 +10,11 @@ const Header = () => {
 
     const dispatch = useDispatch()
 
+    // useQueryClient đùng để tương tác với cache của ReactQuery
+    const queryClient = useQueryClient()
+
     const handleLogout = () => {
+        queryClient.removeQueries({queryKey: ['profile']})
         dispatch(logout())
     }
     return (
