@@ -1,83 +1,80 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectorGheKhachChon } from '../store/booking/bookingSlice'
+import { selectorGheKhachChon, huyGhe, datVe } from '../store/booking/bookingSlice'
 
 const DanhsachGheDaChon = () => {
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  const gheKhachChon = useSelector(selectorGheKhachChon)
+  const tongTien = gheKhachChon.reduce((sum, ghe) => sum + ghe.gia, 0)
 
-    const gheKhachChon = useSelector(selectorGheKhachChon)
+  const handleHuyGhe = (soGhe) => {
+    dispatch(huyGhe(soGhe))
+  }
 
-    // tính toán tổng tiền
-    const tongTien = gheKhachChon.reduce((sum, ghe) => sum + ghe.gia, 0)
+  const handleDatVe = () => {
+    if (gheKhachChon.length === 0) return
+    dispatch(datVe())
+  }
 
-    return (
-        <aside className="w-full lg:w-80 flex-shrink-0">
-            <div className="bg-black/50 border border-yellow-700 rounded-2xl p-5 sticky top-4">
-                {/* Tiêu đề */}
-                <h2 className="text-yellow-400 text-lg font-extrabold text-center tracking-widest uppercase mb-5">
-                    Danh Sách Ghế Bạn Chọn
-                </h2>
-                {/* Chú thích màu sắc */}
-                <div className="flex flex-col gap-2 mb-5">
-                    <div className="flex items-center gap-3">
-                        <div className="w-7 h-5 rounded bg-orange-500 flex-shrink-0" />
-                        <span className="text-yellow-200 text-sm">Ghế đã đặt</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <div className="w-7 h-5 rounded bg-green-400 flex-shrink-0" />
-                        <span className="text-yellow-200 text-sm">Ghế đang chọn</span>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <div className="w-7 h-5 rounded border-2 border-orange-500 flex-shrink-0" />
-                        <span className="text-yellow-200 text-sm">Ghế chưa đặt</span>
-                    </div>
-                </div>
-                {/* Bảng ghế đã chọn (mock: A1, A2, A3) */}
-                <div className={`border border-yellow-700 rounded-xl ${gheKhachChon.length > 7 ? 'max-h-80' : ''} overflow-y-auto mb-4`}>
-                    {/* nếu số lượng ghế đang chọn lớn hơn 10 => thêm class scroll down bên trong table */}
-                    {/* thêm overflow-y-auto */}
-                    <table className="w-full text-sm">
-                        <thead>
-                            <tr className="border-b border-yellow-700 bg-black/30">
-                                <th className="text-yellow-400 py-2 px-3 text-left font-bold">Số ghế</th>
-                                <th className="text-yellow-400 py-2 px-3 text-left font-bold">Giá (đ)</th>
-                                <th className="text-yellow-400 py-2 px-3 text-center font-bold">Hủy</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {/* Ghế A1 */}
-                            
-                            {
-                                gheKhachChon.map((ghe) => (
-                                    <tr className="border-b border-yellow-900/50">
-                                        <td className="text-orange-400 py-2 px-3 font-bold">{ghe.soGhe}</td>
-                                        <td className="text-orange-400 py-2 px-3">{ghe.gia.toLocaleString()}</td>
-                                        <td className="py-2 px-3 text-center">
-                                            <span className="text-red-500 font-bold text-base leading-none cursor-pointer">✕</span>
-                                        </td>
-                                    </tr>
-                                ))
-                            }
+  return (
+    <aside className="summary-card p-6 sticky top-6">
+      <div className="summary-header">
+        <p className="text-orange-300 uppercase tracking-[0.35em] text-xs font-semibold">Danh sách ghế bạn chọn</p>
+        <h2 className="summary-title mt-4">Thanh toán</h2>
+        <p className="summary-subtitle mt-3">Xem lại thông tin ghế, sau đó xác nhận đặt vé để hoàn tất đơn hàng.</p>
+      </div>
+      <div className="summary-body">
+        <div className="summary-list">
+          <table className="summary-table">
+            <thead>
+              <tr>
+                <th>Số ghế</th>
+                <th className="text-right">Giá</th>
+                <th className="text-center">Hủy</th>
+              </tr>
+            </thead>
+            <tbody>
+              {gheKhachChon.length === 0 ? (
+                <tr>
+                  <td colSpan="3" className="py-8 text-center text-slate-500">Chưa có ghế nào được chọn.</td>
+                </tr>
+              ) : (
+                gheKhachChon.map((ghe) => (
+                  <tr key={ghe.soGhe} className="border-t border-slate-800">
+                    <td>{ghe.soGhe}</td>
+                    <td className="text-right">{ghe.gia.toLocaleString()}</td>
+                    <td className="text-center">
+                      <button
+                        type="button"
+                        onClick={() => handleHuyGhe(ghe.soGhe)}
+                        className="text-red-400 hover:text-red-300"
+                      >
+                        ✕
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
 
+        <div className="summary-total">
+          <span className="text-slate-300 uppercase tracking-[0.18em] text-xs">Tổng tiền</span>
+          <span className="summary-price">{tongTien.toLocaleString()} đ</span>
+        </div>
 
-                            {/* Tổng tiền */}
-                            <tr>
-                                <td className="text-yellow-300 py-2 px-3 font-bold">Tổng tiền</td>
-                                <td className="text-orange-400 py-2 px-3 font-extrabold">{tongTien.toLocaleString()}</td>
-                                <td />
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                {/* Nút Đặt Vé */}
-                <button className="w-full bg-orange-500 hover:bg-orange-400 text-black font-extrabold
-             py-3 rounded-xl tracking-widest uppercase text-sm cursor-pointer
-             transition-colors">
-                    Đặt Vé
-                </button>
-            </div>
-        </aside>
-    )
+        <button
+          type="button"
+          disabled={gheKhachChon.length === 0}
+          onClick={handleDatVe}
+          className="btn-confirm"
+        >
+          Xác nhận đặt vé
+        </button>
+      </div>
+    </aside>
+  )
 }
 
 export default DanhsachGheDaChon
