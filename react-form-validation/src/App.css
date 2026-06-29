@@ -1,0 +1,152 @@
+/* App Styles */
+body {
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  color: #2c3e50;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+h3 {
+  color: #34495e;
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+.form-control {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #28a745;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+.form-control.is-invalid {
+  border-color: #dc3545;
+}
+
+.form-control.is-invalid:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 8px;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+  font-weight: 500;
+  padding: 8px 24px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.table {
+  background-color: white;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.table-dark {
+  background-color: #2c3e50;
+}
+
+.table-dark th {
+  color: white;
+  font-weight: 600;
+  border-color: #1a252f;
+}
+
+.table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f0f0f0;
+}
+
+.table td {
+  vertical-align: middle;
+  padding: 12px;
+  border-color: #e9ecef;
+}
+
+
+
+.hero {
+  position: relative;
+
+  .base,
+  .framework,
+  .vite {
+    inset-inline: 0;
+    margin: 0 auto;
+  }
+
+  .base {
+    width: 170px;
+    position: relative;
+    z-index: 0;
+  }
+
+  .framework,
+  .vite {
+    position: absolute;
+  }
+
+  .framework {
+    z-index: 1;
+    top: 34px;
+    height: 28px;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
+      scale(1.4);
+  }
+
+  .vite {
+    z-index: 0;
+    top: 107px;
+    height: 26px;
+    width: auto;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
+      scale(0.8);
+  }
+}
+
